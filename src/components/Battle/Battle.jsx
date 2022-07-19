@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { opponentStats, playerStats } from '../../shared';
+import { BattleMenu } from '../BattleMenu';
 import { PlayerSummary } from '../PlayerSummary'
 import styles from './styles.module.css'
 
@@ -28,6 +29,14 @@ export const Battle = () => {
             maxHealth={playerStats.maxHealth}
             />
           </div>
+        </div>
+
+        <div className={styles.hudChild}>
+          <BattleMenu 
+            onAttack={() => console.log('Attack!')}
+            onMagic={() => console.log('Magic!')}
+            onHeal={() => console.log('Heal!')}
+          />
         </div>
     </div>
   )
