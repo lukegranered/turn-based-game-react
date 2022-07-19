@@ -4,3 +4,4 @@ export * from './Battle';
 export * from './Bar';
 export * from './PlayerSummary';
 export * from './BattleMenu';
+export * from './BattleAnnouncer';
