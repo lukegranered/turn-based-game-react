@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/turn-based-game-react/static/css/main.4c7f6195.css",
+    "main.js": "/turn-based-game-react/static/js/main.66f78de7.js",
+    "index.html": "/turn-based-game-react/index.html",
+    "main.4c7f6195.css.map": "/turn-based-game-react/static/css/main.4c7f6195.css.map",
+    "main.66f78de7.js.map": "/turn-based-game-react/static/js/main.66f78de7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4c7f6195.css",
+    "static/js/main.66f78de7.js"
+  ]
+}
