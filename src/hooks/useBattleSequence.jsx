@@ -14,7 +14,7 @@ export const useBattleSequence = sequence => {
     const [playerHealth, setplayerHealth] = useState(playerStats.maxHealth);
     const [opponentHealth, setOpponentHealth] = useState(opponentStats.maxHealth);
   
-    const [announcerMessage, setAnnoncerMessage] = useState(''); 
+    const [announcerMessage, setAnnouncerMessage] = useState(''); 
     const [playerAnimation, setPlayerAnimation] = useState('static');
     const [opponentAnimation, setOpponentAnimation] = useState('static');
 
@@ -32,7 +32,7 @@ export const useBattleSequence = sequence => {
 
                     (async () => {
                         setInSequence(true);
-                        setAnnoncerMessage(`${attacker.name} has chosen to attack!`);
+                        setAnnouncerMessage(`${attacker.name} has chosen to attack!`);
 
                         await wait(1000);
 
@@ -54,17 +54,17 @@ export const useBattleSequence = sequence => {
                         turn === 0 
                         ? setOpponentAnimation('static') 
                         : setPlayerAnimation('static');
-                        setAnnoncerMessage(`${receiver.name} felt that!`);
+                        setAnnouncerMessage(`${receiver.name} felt that!`);
                         turn === 0 
                         ? setOpponentHealth(h => (h - damage > 0 ? h - damage : 0)) 
                         : setplayerHealth(h => (h - damage > 0 ? h - damage : 0));
                         await wait(2000);
 
-                        setAnnoncerMessage(`Now its ${receiver.name} turn!`);
+                        setAnnouncerMessage(`Now its ${receiver.name}'s turn!`);
                         await wait(1500);
 
                         setTurn(turn === 0 ? 1 : 0);
-                        setInSequence = false;
+                        setInSequence(false);
                     })();
                     break;
                 }
@@ -74,7 +74,7 @@ export const useBattleSequence = sequence => {
 
                     (async () => {
                         setInSequence(true);
-                        setAnnoncerMessage(`${attacker.name} has cast a spell!`);
+                        setAnnouncerMessage(`${attacker.name} has cast a spell!`);
 
                         await wait(1000);
 
@@ -96,23 +96,53 @@ export const useBattleSequence = sequence => {
                         turn === 0 
                         ? setOpponentAnimation('static') 
                         : setPlayerAnimation('static');
-                        setAnnoncerMessage(`${receiver.name} doesn't know what hit them!`);
+                        setAnnouncerMessage(`${receiver.name} doesn't know what hit them!`);
                         turn === 0 
                         ? setOpponentHealth(h => (h - damage > 0 ? h - damage : 0)) 
                         : setplayerHealth(h => (h - damage > 0 ? h - damage : 0));
-                        await wait(2000);
+                        await wait(2500);
 
-                        setAnnoncerMessage(`Now its ${receiver.name} turn!`);
+                        setAnnouncerMessage(`Now its ${receiver.name}'s turn!`);
                         await wait(1500);
 
                         setTurn(turn === 0 ? 1 : 0);
-                        setInSequence = false;
+                        setInSequence(false);
                     })();
                 break;
             }
-                default: {
+
+            case 'heal': {
+                const recovered = heal({ receiver: attacker });
+
+                (async () => {
+                    setInSequence(true);
+                    setAnnouncerMessage(`${attacker.name} has chosen to heal!`);
+                    await wait(1000);
+
+                    turn === 0 ? setPlayerAnimation('magic') : setOpponentAnimation('magic');
+                    await wait(1000);
+
+                    turn === 0 ? setPlayerAnimation('static') : setOpponentAnimation('static');
+                    await wait(500);
+
+                    setAnnouncerMessage(`${attacker.name} has recovered health.`);
+                    turn === 0 ? setplayerHealth(h => h + recovered <= attacker.maxHealth ? h + recovered : attacker.maxHealth) : setOpponentHealth(h => h + recovered <= attacker.maxHealth ? h + recovered : attacker.maxHealth);
+                    await wait(2500);
+
+                    setAnnouncerMessage(`Now it's ${receiver.name}'s turn!`);
+                    await wait(1500);
+
+                    setTurn(turn === 0 ? 1 :1);
+                    setInSequence(false);
+
+                })();
+
                 break;
-                }
+            }
+
+                default: 
+                break;
+                
             }
         }
     }, [sequence]);
