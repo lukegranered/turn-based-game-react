@@ -2,7 +2,7 @@ export const playerStats = {
     level: 44,
     maxHealth: 177,
     name: 'Mega Man',
-    img: './turn-based-game-react/assets/megaman.png',
+    img: './assets/megaman.png',
   
     magic: 32,
     attack: 50,
@@ -13,7 +13,7 @@ export const playerStats = {
     level: 44,
     name: 'Samus',
     maxHealth: 188,
-    img: './turn-based-game-react/assets/samus.png',
+    img: './assets/samus.png',
   
     magic: 50,
     attack: 32,
