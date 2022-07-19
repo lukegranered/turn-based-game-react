@@ -5,3 +5,4 @@ export * from './Bar';
 export * from './PlayerSummary';
 export * from './BattleMenu';
 export * from './BattleAnnouncer';
+export * from './EndMenu';
